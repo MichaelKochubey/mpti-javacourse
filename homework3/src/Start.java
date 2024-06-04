@@ -90,26 +90,26 @@ class Tools {
         int[] arr = {12, 13, 14};
         int y = x % 10;
 
-        if (x != 11 && y == 1) return x + " год";
-        else if (!in(x, arr) && in(y, ost)) return x + " года";
-        else return x + " лет";
+        if (x != 11 && y == 1) return x + " god";
+        else if (!in(x, arr) && in(y, ost)) return x + " goda";
+        else return x + " let";
     }
 
     public static String day(int x) {
         return switch (x) {
-            case 1 -> "Понедельник";
-            case 2 -> "Вторник";
-            case 3 -> "Среда";
-            case 4 -> "Четверг";
-            case 5 -> "Пятница";
-            case 6 -> "Суббота";
-            case 7 -> "Воскресенье";
-            default -> "Это не день недели";
+            case 1 -> "Ponedelnik";
+            case 2 -> "Vtornik";
+            case 3 -> "Sreda";
+            case 4 -> "Chetverg";
+            case 5 -> "Pyatnitsa";
+            case 6 -> "Subbota";
+            case 7 -> "Voskresenje";
+            default -> "Eto ne den nedeli";
         };
     }
 
     public static void printDays(String x) {
-        String[] days = {"Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота", "Воскресенье"};
+        String[] days = {"Ponedelnik", "Vtornik", "Sreda", "Chetverg", "Pyatnitsa", "Subbota", "Voskresenje"};
 
         int from = 10;
         for (int i = 0; i < days.length; i++) {
@@ -123,7 +123,7 @@ class Tools {
         }
 
         if (from == 10) {
-            System.out.println("Это не день недели");
+            System.out.println("Eto ne den nedeli");
         }
     }
 
@@ -397,13 +397,13 @@ class Tools {
         assertTrue(magic6(6, 1));
         assertFalse(magic6(10, 10));
 
-        assertEquals(age(5), "5 лет");
-        assertEquals(age(21), "21 год");
-        assertEquals(age(43), "43 года");
-        assertEquals(age(13), "13 лет");
+        assertEquals(age(5), "5 let");
+        assertEquals(age(21), "21 god");
+        assertEquals(age(43), "43 goda");
+        assertEquals(age(13), "13 let");
 
-        assertEquals(day(5), "Пятница");
-        assertEquals(day(8), "Это не день недели");
+        assertEquals(day(5), "Pyatnitsa");
+        assertEquals(day(8), "Eto ne den nedeli");
 
         assertEquals(listNums(6), "0 1 2 3 4 5 6");
         assertEquals(reverseListNums(5), "5 4 3 2 1 0");
