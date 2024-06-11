@@ -11,7 +11,7 @@ public class Start {
         t.asserting();
 /*
         System.out.println("printDays:::");
-        Tools.printDays("Четверг");
+        Tools.printDays("Sreda");
 
         System.out.println("\n" + "square:::");
         Tools.square(3);
