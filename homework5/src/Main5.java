@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -74,6 +75,7 @@ class Fraction {
         return Math.max(a, b);
     }
 
+    // сокращение дроби
     public Fraction reduce() {
         int a = this.getNumerator(), b = this.getDenominator();
         int c = findGreatestCommonDenominator(a, b);
@@ -207,16 +209,124 @@ class Student {
 }
 
 class City {
-    String name;
-    List<Road> roads;
+    private String name;
+    private ArrayList<Road> roads;
+    public City(String name) {
+        this.name = name;
+    }
+
+    public City(String name, ArrayList<Road> roads) {
+        this.name = name;
+        this.roads = new ArrayList<Road>(roads);
+    }
+
+    public void setRoads(List<Road> roads) {
+        this.roads = new ArrayList<Road>(roads);
+    }
+    public void addRoad(Road road) {
+        for (Road r : roads) {
+            if (r.getTo().equals(road.getTo())) throw new IllegalArgumentException("Road should not be duplicated");
+        }
+        this.roads.add(road);
+    }
+    public void deleteRoadByIndex(int index) {
+        this.roads.remove(index);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Road r : roads) {
+            sb.append(r.getTo().name + " : " + r.getPrice() + ", ");
+        }
+        return "{" + name + ": [" + sb.toString() + "]}";
+    }
 }
+
 class Road {
-    City to;
-    int price;
+    private City to;
+    private int price;
+    public Road(City to, int price) {
+        this.to = to;
+        this.price = price;
+    }
+
+    public City getTo() {
+        return to;
+    }
+    public void setTo(City to) {
+        this.to = to;
+    }
+    public int getPrice() {
+        return price;
+    }
+    public void setPrice(int price) {
+        this.price = price;
+    }
+}
+
+class Employee {
+    private String name;
+    private Dept dept;
+
+    public Employee(String name) {
+        this.name = name;
+    }
+    public Employee(String name, Dept dept) {
+        this.name = name;
+        this.dept = dept;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public Dept getDept() {
+        return dept;
+    }
+    public void setDept(Dept dept) {
+        this.dept = dept;
+    }
+    @Override
+    public String toString() {
+        if (isHeadOfDept()) return name + " is a Head of dept " + dept.getTitle();
+        return name + " works in dept " + dept.getTitle() + " where Head is " + dept.getHead().getName();
+    }
+    public boolean isHeadOfDept() {
+        return this.name.equals(this.getDept().getHead().getName());
+    }
+}
+
+class Dept {
+    private String title;
+    private Employee head;
+
+    public Dept(String title) {
+        this.title = title;
+    }
+    public Dept(String title, Employee head) {
+        this.title = title;
+        this.head = head;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(String title) {
+        this.title = title;
+    }
+    public Employee getHead() {
+        return head;
+    }
+    public void setHead(Employee employee) {
+        if (employee.getDept().equals(this)) this.head = employee;
+        else throw new IllegalArgumentException("Employee must work in this dept to be the head of it");
+    }
 }
 
 public class Main5 {
     public static void main(String[] args) {
+        // 1.6.4
         /*
         Fraction a = new Fraction(7,11);
         Fraction b = new Fraction(1,7);
@@ -246,11 +356,15 @@ public class Main5 {
         a = new Fraction(2, -3);
         System.out.println(a);
          */
+
+        // 1.6.6
         /*
         Point p1 = new Point(1,1), p2 = new Point(2,2), p3 = new Point(3,3);
         Line line1 = new Line(p1, p2), line2 = new Line(p1, p3);
         System.out.println(line1.getStart().hashCode() == line2.getStart().hashCode());
          */
+
+        // 1.6.9
         /*
         Student st = new Student("Vasya", new int[]{3, 4, 5, 4});
         Student st2 = new Student("Petya", new int[]{5, 5, 5, 5});
@@ -259,5 +373,40 @@ public class Main5 {
         System.out.println(st);
          */
 
+        // 1.6.10
+        /*
+        System.out.println("1.6.10");
+        City A = new City("A"), B = new City("B"), C = new City("C"),
+                D = new City("D"), E = new City("E"), F = new City("F");
+        List<Road> Roads = new ArrayList<>();
+        Roads.add(new Road(B, 5)); Roads.add(new Road(D, 6)); Roads.add(new Road(F, 1));
+        A.setRoads(Roads); Roads.clear();
+
+        Roads.add(new Road(A, 5)); Roads.add(new Road(C, 3));
+        B.setRoads(Roads); Roads.clear();
+
+        Roads.add(new Road(B, 3)); Roads.add(new Road(D, 4));
+        C.setRoads(Roads); Roads.clear();
+
+        Roads.add(new Road(C, 4)); Roads.add(new Road(E, 2)); Roads.add(new Road(A, 6));
+        D.setRoads(Roads); Roads.clear();
+
+        Roads.add(new Road(F, 2));
+        E.setRoads(Roads); Roads.clear();
+
+        Roads.add(new Road(B, 1)); Roads.add(new Road(E, 2));
+        F.setRoads(Roads); Roads.clear();
+
+        F.addRoad(new Road(B, 1));
+        System.out.println(F);
+        */
+
+        // 1.6.11
+        /*
+        Dept it = new Dept("IT"); Dept it2 = new Dept("IT");
+        Employee emp1 = new Employee("Petrov", it), emp2 = new Employee("Kozlov", it), emp3 = new Employee("Sidorov", it);
+        Employee emp4 = new Employee("Kochubey", it2);
+        it.setHead(emp4);
+         */
     }
 }
