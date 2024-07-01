@@ -1,5 +1,7 @@
+package ru.kochubey.geometry;
+
 // 3.2.4
-abstract public class Figure {
+abstract class Figure {
     Point start;
     int side;
     abstract int square();
@@ -64,7 +66,7 @@ class Triangle {
     }
 }
 
-class Example3 {
+public class Example3 {
     public static void main(String[] args) {
         Point p1 = new Point(0, 0);
         Square sq1 = new Square(p1, 2);

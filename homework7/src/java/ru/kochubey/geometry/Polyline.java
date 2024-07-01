@@ -1,9 +1,9 @@
-//3.1.2 - 1.5.7 - 1.4.9 - 1.3.2
+package ru.kochubey.geometry;//3.1.2 - 1.5.7 - 1.4.9 - 1.3.2
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Polyline implements ILine{
+public class Polyline implements ILine {
     List<Point> points;
 
     public Polyline() {
@@ -32,7 +32,7 @@ public class Polyline implements ILine{
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Line [ ");
+        sb.append("ru.kochubey.geometry.Line [ ");
         for (Point p : points) {
             sb.append(p.toString());
         }

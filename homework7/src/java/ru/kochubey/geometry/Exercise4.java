@@ -1,3 +1,5 @@
+package ru.kochubey.geometry;
+
 import java.util.List;
 
 // 3.3.3

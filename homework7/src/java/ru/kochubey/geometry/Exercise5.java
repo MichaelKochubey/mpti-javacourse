@@ -1,6 +1,11 @@
-// 3.3.5
+package ru.kochubey.geometry;// 3.3.5
+
 import java.util.ArrayList;
 import java.util.List;
+
+interface ILine {
+    int length();
+}
 
 class Calc {
     static int calcLength(List<ILine> lines) {
@@ -10,11 +15,6 @@ class Calc {
         }
         return res;
     }
-}
-
-// этот интерфейс реализуют класс Polyline и homework5/src/Line
-interface ILine {
-    int length();
 }
 
 public class Exercise5 {

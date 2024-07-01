@@ -1,5 +1,7 @@
+package ru.kochubey;
+
 // 3.2.3
-abstract public class Bird {
+abstract class Bird {
     abstract void sing();
     public Bird() {}
 }
@@ -34,7 +36,7 @@ class Popugai extends Bird {
     }
 }
 
-class Example2 {
+public class Example2 {
     public static void main(String[] args) {
         Vorobey v = new Vorobey();
         v.sing();
