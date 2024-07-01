@@ -86,7 +86,7 @@ class Fraction {
     }
 }
 
-class Line {
+class Line implements ILine {
     private Point start;
     private Point end;
     public Line(Point start, Point end) {

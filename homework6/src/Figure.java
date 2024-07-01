@@ -21,11 +21,12 @@ class Circle extends Figure {
     }
 }
 
-class Rectangle extends Figure {
+// наследуем прямоугольник от квадрата - и добавляем прямоугольнику длину другой стороны
+class Rectangle extends Square {
     int secondSide;
 
-    public Rectangle(Point leftHighAngle, int firstSide, int secondSide) {
-        super(leftHighAngle, firstSide);
+    public Rectangle(Point leftHighPoint, int firstSide, int secondSide) {
+        super(leftHighPoint, firstSide);
         this.secondSide = secondSide;
     }
 
@@ -35,23 +36,29 @@ class Rectangle extends Figure {
     }
 }
 
-class Square extends Rectangle {
-    public Square(Point leftHighAngle, int side) {
-        super(leftHighAngle, side, side);
+class Square extends Figure {
+    public Square(Point leftHighPoint, int side) {
+        super(leftHighPoint, side);
+    }
+
+    @Override
+    int square() {
+        return side * side;
     }
 }
 
-class Triangle extends Figure{
+// не наследуемся ни от кого - достаточно задать точки
+class Triangle {
+    Point start;
     Point two;
     Point three;
 
-    public Triangle(Point start, Point two, Point three, int side) {
-        super(start, 0);
+    public Triangle(Point start, Point two, Point three) {
+        this.start = start;
         this.two = two;
         this.three = three;
     }
 
-    @Override
     int square() {
         return 1; // тут место для формулы
     }
@@ -59,6 +66,10 @@ class Triangle extends Figure{
 
 class Example3 {
     public static void main(String[] args) {
-
+        Point p1 = new Point(0, 0);
+        Square sq1 = new Square(p1, 2);
+        Rectangle r1 = new Rectangle(p1, 2 ,3);
+        System.out.println(sq1.square());
+        System.out.println(r1.square());
     }
 }
