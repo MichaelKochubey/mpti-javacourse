@@ -4,8 +4,8 @@ import ru.kochubey.geometry.ILine;
 
 import java.util.List;
 
-class Calc {
-    static int calcLength(List<ILine> lines) {
+public class Calc {
+    public static int calcLength(List<ILine> lines) {
         int res = 0;
         for (ILine a : lines) {
             res += a.length();

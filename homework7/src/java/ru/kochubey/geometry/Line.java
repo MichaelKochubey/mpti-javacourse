@@ -1,6 +1,6 @@
 package ru.kochubey.geometry;
 
-class Line implements ILine {
+public class Line implements ILine {
     private Point start;
     private Point end;
 

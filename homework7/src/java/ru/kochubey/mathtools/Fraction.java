@@ -82,4 +82,10 @@ public class Fraction {
         }
         return this;
     }
+
+    public double toDouble() {
+        double n = this.numerator;
+        double d = this.denominator;
+        return n/d;
+    }
 }
