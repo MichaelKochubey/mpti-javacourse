@@ -51,28 +51,3 @@ public class Polyline implements ILine {
         return res;
     }
 }
-
-class ClosedPolyline extends Polyline {
-    public ClosedPolyline(List<Point> points) {
-        super(points);
-    }
-
-    @Override
-    public int length() {
-        int size = points.size();
-        int res = super.length();
-        res += (int) Math.sqrt(
-                Math.pow(points.get(0).getX() - points.get(size - 1).getX(), 2) +
-                        Math.pow(points.get(0).getY() - points.get(size - 1).getY(), 2)
-        );
-        return res;
-    }
-}
-
-class ExampleOne {
-    public static void main(String[] args) {
-        Point p1 = new Point(0 ,0), p2 = new Point(0, 3), p3 = new Point(3, 3), p4 = new Point(3, 0);
-        ClosedPolyline cpl1 = new ClosedPolyline(List.of(p1, p2, p3, p4));
-        System.out.println(cpl1.length());
-    }
-}
