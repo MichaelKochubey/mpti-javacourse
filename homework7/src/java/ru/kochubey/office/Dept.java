@@ -1,5 +1,6 @@
 package ru.kochubey.office;
 
+// 4.2.1
 public class Dept {
     String title;
     Employee head;
