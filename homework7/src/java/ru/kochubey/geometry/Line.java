@@ -1,5 +1,7 @@
 package ru.kochubey.geometry;
 
+import java.util.Objects;
+
 public class Line implements ILine {
     private Point start;
     private Point end;
@@ -38,5 +40,25 @@ public class Line implements ILine {
     @Override
     public String toString() {
         return "{" + start.toString() + "," + end.toString() + '}';
+    }
+
+    // 3.4.3
+    @Override
+    public boolean equals(Object other) {
+        if ((other == null) || (other.getClass() != this.getClass())) return false;
+        if (this == other) return true;
+
+        Line l = (Line) other;
+        return Objects.equals(this.start, l.start) && Objects.equals(this.end, l.end);
+    }
+
+    // 4.2.5
+    @Override
+    public Line clone() {
+        try {
+            return (Line) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            throw new IllegalArgumentException(ex);
+        }
     }
 }

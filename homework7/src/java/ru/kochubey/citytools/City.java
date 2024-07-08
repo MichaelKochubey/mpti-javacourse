@@ -2,6 +2,7 @@ package ru.kochubey.citytools;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class City {
     private String name;
@@ -35,5 +36,13 @@ public class City {
             sb.append(r.getTo().name + " : " + r.getPrice() + ", ");
         }
         return "{" + name + ": [" + sb.toString() + "]}";
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof City c)) return false;
+        if (this == other) return true;
+
+        return Objects.equals(this.roads, ((City) other).roads);
     }
 }

@@ -2,6 +2,7 @@ package ru.kochubey.geometry;//3.1.2 - 1.5.7 - 1.4.9 - 1.3.2
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Polyline implements ILine {
     List<Point> points;
@@ -49,5 +50,20 @@ public class Polyline implements ILine {
             );
         }
         return res;
+    }
+
+    // 3.4.4
+    @Override
+    public boolean equals(Object other) {
+        if ((other == null) || (other.getClass() != this.getClass())) return false;
+        if (this == other) return true;
+
+        Polyline pl = (Polyline) other;
+        return Objects.equals(this.points, pl.points);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.points);
     }
 }

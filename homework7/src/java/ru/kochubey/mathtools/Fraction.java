@@ -1,11 +1,34 @@
 package ru.kochubey.mathtools;
 
-public class Fraction {
-    private int numerator;
-    private int denominator;
+import java.util.Objects;
+
+public class Fraction extends Number implements Cloneable {
+    private final int numerator;
+    private final int denominator;
     public Fraction() {
         this(1,1);
     }
+
+    @Override
+    public int intValue() {
+        return numerator / denominator;
+    }
+
+    @Override
+    public long longValue() {
+        return numerator / denominator;
+    }
+
+    @Override
+    public float floatValue() {
+        return (float) numerator / (float) denominator;
+    }
+
+    @Override
+    public double doubleValue() {
+        return (double) numerator / (double) denominator;
+    }
+
     public Fraction(int numerator, int denominator) {
         if (denominator == 0) throw new IllegalArgumentException("Denominator must not be equal to zero");
         if (denominator < 0) { numerator = numerator * -1; denominator = denominator * -1;}
@@ -84,8 +107,30 @@ public class Fraction {
     }
 
     public double toDouble() {
-        double n = this.numerator;
-        double d = this.denominator;
-        return n/d;
+        return (double) this.numerator / (double) this.denominator;
+    }
+
+    // 3.4.1
+    public boolean equals(Object other) {
+        if (other == null || (this.getClass() != other.getClass())) return false;
+        // if (!(other instanceof Fraction fr)) return false;
+        if (this == other) return true;
+
+        Fraction f = (Fraction) other;
+        return Objects.equals(this.numerator, f.numerator) && Objects.equals(this.denominator, f.denominator);
+    }
+
+    public int hashCode() {
+        return Objects.hash(this.numerator, this.denominator);
+    }
+
+    // 4.2.3
+    @Override
+    public Fraction clone() {
+        try {
+            return (Fraction) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            throw new IllegalArgumentException(ex);
+        }
     }
 }

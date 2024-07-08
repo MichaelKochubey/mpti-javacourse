@@ -1,6 +1,8 @@
 package ru.kochubey.geometry;
 
-public class Point {
+import java.util.Objects;
+
+public class Point implements Cloneable {
     private int x;
     private int y;
 
@@ -34,8 +36,29 @@ public class Point {
         return "{" + x + ';' + y + '}';
     }
 
+    // 3.4.2
+    @Override
+    public boolean equals(Object other) {
+        if (other == null || (other.getClass() != this.getClass())) return false;
+        // if (!(other instanceof Point p)) return false;
+        if (this == other) return true;
+
+        Point q = (Point) other;
+        return Objects.equals(this.x, q.x) && Objects.equals(this.y, q.y);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.x, this.y);
+    }
+
+    // 4.2.4
     @Override
     public Point clone() {
-        return new Point(this.x, this.y);
+        try {
+            return (Point) super.clone();
+        } catch (CloneNotSupportedException ex) {
+            throw new IllegalArgumentException(ex);
+        }
     }
 }
