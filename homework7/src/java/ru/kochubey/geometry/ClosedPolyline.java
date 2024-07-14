@@ -3,7 +3,7 @@ package ru.kochubey.geometry;
 import java.util.List;
 
 class ClosedPolyline extends Polyline {
-    public ClosedPolyline(List<Point> points) {
+    public ClosedPolyline(List<Point2D> points) {
         super(points);
     }
 

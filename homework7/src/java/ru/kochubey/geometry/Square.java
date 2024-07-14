@@ -1,7 +1,7 @@
 package ru.kochubey.geometry;
 
 class Square extends Figure {
-    public Square(Point leftHighPoint, int side) {
+    public Square(Point2D leftHighPoint, int side) {
         super(leftHighPoint, side);
     }
 

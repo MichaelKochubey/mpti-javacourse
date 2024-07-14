@@ -5,26 +5,26 @@ import java.util.List;
 import java.util.Objects;
 
 public class Polyline implements ILine {
-    List<Point> points;
+    List<Point2D> points;
 
     public Polyline() {
-        points = List.of(new Point(0, 0));
+        points = List.of(new Point2D(0, 0));
     }
 
-    public Polyline(List<Point> points) {
+    public Polyline(List<Point2D> points) {
         this.points = List.copyOf(points);
     }
 
-    public List<Point> getPoints() {
+    public List<Point2D> getPoints() {
         return List.copyOf(points);
     }
 
-    public void setPoints(List<Point> points) {
+    public void setPoints(List<Point2D> points) {
         this.points = List.copyOf(points);
     }
 
-    public void addPoints(List<Point> p) {
-        List<Point> newPoints = new ArrayList<>();
+    public void addPoints(List<Point2D> p) {
+        List<Point2D> newPoints = new ArrayList<>();
         newPoints.addAll(points);
         newPoints.addAll(p);
         points = newPoints;
@@ -34,7 +34,7 @@ public class Polyline implements ILine {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ru.kochubey.geometry.Line [ ");
-        for (Point p : points) {
+        for (Point2D p : points) {
             sb.append(p.toString());
         }
         sb.append("] \n");

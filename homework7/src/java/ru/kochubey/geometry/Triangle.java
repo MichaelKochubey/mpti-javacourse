@@ -2,11 +2,11 @@ package ru.kochubey.geometry;
 
 // не наследуемся ни от кого - достаточно задать точки
 class Triangle {
-    Point start;
-    Point two;
-    Point three;
+    Point2D start;
+    Point2D two;
+    Point2D three;
 
-    public Triangle(Point start, Point two, Point three) {
+    public Triangle(Point2D start, Point2D two, Point2D three) {
         this.start = start;
         this.two = two;
         this.three = three;

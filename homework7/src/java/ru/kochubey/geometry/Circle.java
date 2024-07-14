@@ -1,7 +1,7 @@
 package ru.kochubey.geometry;
 
 class Circle extends Figure {
-    public Circle(Point center, int radius) {
+    public Circle(Point2D center, int radius) {
         super(center, radius);
     }
 
