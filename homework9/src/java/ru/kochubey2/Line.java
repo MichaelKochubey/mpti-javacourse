@@ -74,5 +74,14 @@ class Example4 {
         Point3D p1 = new Point3D(1, 2, 3), p2 = new Point3D(3, 1, 2);
         Line<Point3D> line = Line.createOf(p1, p2);
         System.out.println(line);
+        moveLine(line);
+        System.out.println(line);
+    }
+
+    // 5.2.1
+    public static<T extends Pointable> void moveLine(Line<T> line) {
+        T start = line.getStart();
+        int x = start.getX();
+        start.setX(x - 10);
     }
 }
