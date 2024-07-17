@@ -61,10 +61,9 @@ public class Line<T extends Pointable> implements ILine, Cloneable {
         return Objects.equals(this.start, l.start) && Objects.equals(this.end, l.end);
     }
 
-    @Override
-    public Line<T> clone() {
-        T st = (T) this.start.clone();
-        T end = (T) this.end.clone();
+    public Line<T> clone(Line<T> line) {
+        T st = (T) line.start.clone();
+        T end = (T) line.start.clone();
         return new Line<T>(st, end);
     }
 }
