@@ -3,6 +3,7 @@ package ru.kochubey2;
 import ru.kochubey.geometry.Point3D;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Box<T> {
@@ -41,9 +42,6 @@ class Example1 {
 
         put3D(b1);
         System.out.println(b1.get());
-
-//        List<Integer> l = new ArrayList<>();
-//        fill(l);
     }
 
     public static void test(Box box) {
@@ -69,9 +67,10 @@ class Example1 {
     }
 
     // 5.2.4 ?
-    public static void fill(List<? extends Number> list) {
-        for (Number i = 0; i.intValue() < 100; i = i.intValue() + 1) {
-//            list.add(i);
+    public static void fill(List<? super Integer> list) {
+        list.clear();
+        for (int i = 0; i < 100; i++) {
+            list.add(i);
         }
     }
 }
