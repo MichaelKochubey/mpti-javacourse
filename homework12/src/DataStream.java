@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class DataStream<T> {
     private List<T> list;
@@ -11,37 +12,50 @@ public class DataStream<T> {
     }
 
     public static <T> DataStream<T> create(List<T> list) {
-        return new DataStream<T>(list);
+        return new DataStream<>(list);
     }
 
-    public<V> DataStream<V> map(Transformable<T, V> mapper) {
-        // при передаче в map аргумента mapper создаем новый объект класса Transformer,
-        // содержащий mapper в качестве свойства. mapper может вызвать только метод map
-        commands.add(new Transformer(mapper));
+    public <V> DataStream<V> map(Transformable<T, V> mapper) {
+        commands.add(new Transformer<>(mapper));
         return (DataStream<V>) this;
     }
 
     public DataStream<T> filter(Checkable<T> checker) {
-        // при передаче в filter аргумента checker создаем новый объект класса Checker,
-        // который содержит checker в качестве свойства. checker может вызвать только метод check
         commands.add(new Checker<>(checker));
         return this;
     }
 
     public Optional<T> reduce(Reducer<T> reducer) {
-        for (Operation op : commands) {
-            for (int i = 0; i < list.size(); i ++) {
-                op.act(list.get(i));
+        for (Operation command : commands) {
+            for (int i = 0; i < list.size(); i++) {
+                command.act(list.get(i));
             }
-            list = op.getList();
+            list = command.getList();
         }
+
         if (list.isEmpty()) return Optional.empty();
 
         T res = list.get(0);
-        for(int i = 1; i < list.size(); i ++) {
-            reducer.make(res, list.get(i));
+        for (int i = 1; i < list.size(); i++) {
+            res = reducer.make(res, list.get(i));
         }
         return Optional.of(res);
+    }
+
+    public<V> Optional<V> collect(CollectionCreator<V> creator, CollectionGatherer<V, T> gatherer) {
+        V resList = creator.create();
+        for (Operation command : commands) {
+            for (int i = 0; i < list.size(); i++) {
+                command.act(list.get(i));
+            }
+            list = command.getList();
+        }
+        if (list.isEmpty()) return Optional.empty();
+
+        for (int i = 0; i < list.size(); i++) {
+            gatherer.add(resList, list.get(i));
+        }
+        return Optional.of(resList);
     }
 }
 
@@ -55,14 +69,33 @@ class Example12 {
                 .reduce((x, y) -> x+y)
                 .orElse(0);
 
+        List<String> list2 = List.of("121", "55", "abc", "abcde", "40");
+        List<Integer> res2 = DataStream
+                .create(list2)
+                .filter(x -> canBeConvertedToInt(x))
+                .map(x -> Integer.parseInt(x))
+                .collect(ArrayList<Integer>::new, ArrayList::add)
+                .orElse(new ArrayList<>());
+
         System.out.println(res);
+        System.out.println(res2);
+    }
+
+    // Метод, который проверяет, можно ли строку преобразовать в int
+    private static boolean canBeConvertedToInt(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }
 
 // интерфейс, который описывает действие само по себе
 interface Operation<T> {
     void act(T t);
-    List<T> getList();
+    List getList();
 }
 
 // класс, который воплощает действие в смысле проверки какого-либо значения
@@ -87,11 +120,11 @@ class Checker<T> implements Operation<T> {
 }
 
 // класс, который воплощает действие в смысле функции, преобразующей какое-либо значение
-class Transformer<T> implements Operation<T> {
+class Transformer<T, V> implements Operation<T> {
     // поле, отвечающее за преобразование
-    private Transformable<T, T> mapper;
-    private List<T> resultOfMapping = new ArrayList<>();
-    public Transformer(Transformable<T, T> mapper) {
+    private Transformable<T, V> mapper;
+    private List<V> resultOfMapping = new ArrayList<>();
+    public Transformer(Transformable<T, V> mapper) {
         this.mapper = mapper;
     }
 
@@ -101,7 +134,7 @@ class Transformer<T> implements Operation<T> {
     }
 
     @Override
-    public List getList() {
+    public List<V> getList() {
         return resultOfMapping;
     }
 }
@@ -123,3 +156,10 @@ interface Reducer<T> {
     T make(T t, T t2);
 }
 
+interface CollectionGatherer<P, T> {
+    void add(P list, T val);
+}
+
+interface CollectionCreator<T> {
+    T create();
+}
