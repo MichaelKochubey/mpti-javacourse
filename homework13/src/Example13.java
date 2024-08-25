@@ -3,7 +3,7 @@ public class Example13 {
         int x = 5, y = 10;
         System.out.println("counting sum of " + x + " and " + y);
         Storage<Integer> st = Tmp.countSum(5, 10);
-        System.out.println("before get(), st.object = " + st.object); // null, т.к. не записывали значение в переменную
+        System.out.println("before get(), st.object = " + st.object); // null, С‚.Рє. РІС‹С‡РёСЃР»РµРЅРёРµ object Р±СѓРґРµС‚ РїСЂРѕРёР·РІРµРґРµРЅРѕ РІРѕ РІСЂРµРјСЏ РІС‹Р·РѕРІР° getObj 
         System.out.println(st.getObj(0));
         System.out.println("after , st.object = " + st.object);
     }
