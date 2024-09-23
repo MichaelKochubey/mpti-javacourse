@@ -18,10 +18,15 @@ public class Example14 {
                 .sorted((p1, p2) -> {return p1.getX() - p2.getX();})
                 .peek((point) -> point.setY(Math.abs(point.getY())))
                 .distinct()
-                .collect(Collectors.collectingAndThen(
-                        Collectors.toList(),
-                        Polyline::new
-                ));
+                .collect(
+                        Polyline::new,
+                        Polyline::addPoint,
+                        ((polyline, polyline2) -> {})
+                );
+//                .collect(Collectors.collectingAndThen(
+//                        Collectors.toList(),
+//                        Polyline::new
+//                ));
         System.out.println(pl);
 
         // 2
